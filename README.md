@@ -392,4 +392,10 @@ export function getOffsetAngleForArmPivot(targetPosition, armPivot) {
 }
 ...
 ```
+## 3. Project Reflections
+- Some challenges we faced and how we solve
+  - Getting the math right
+  - Learning new tools (Blender)
+  - Lack of available tools for inverse kinematics (having to make do)
+  - Technical Problems (Problem Space) & Technical Solutions (Solution Space)
 
