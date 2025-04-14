@@ -528,6 +528,7 @@ In an image editing software like Photoshop or GIMP, convert all visible pixels 
 
 #### 30. Preview the Model
 - You can preview the model using an online 3D model viewer, such as [3DViewer.net](https://3dviewer.net/).
+- Ensure the image is uploaded to this viewer to view the omage overlaid model properly.
 
 ## 3. Project Reflections
 - Some challenges we faced and how we solve
