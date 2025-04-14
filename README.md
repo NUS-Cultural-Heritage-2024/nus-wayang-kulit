@@ -392,6 +392,144 @@ export function getOffsetAngleForArmPivot(targetPosition, armPivot) {
 }
 ...
 ```
+
+# 4. 3D Modelling Process (Blender)
+
+## Resources used
+
+### We closely replicated these turoials in creating the 3D models. However, this required a lot of preprocessing steps and debugging steps (as functions in blender have several unexpected side effects if not used correctly). The guide is more comprehensive including some details that will need to be followed closely for optimal results.
+
+### Resources:
+
+[Creating a 3D model from a 2d image (or 2d vertice outline) in Blender tutorial](https://www.youtube.com/watch?v=SFil_VghMEk)
+
+[Adding an image to an object in Blender tutorial](https://www.youtube.com/watch?v=jLGWE335J28&t=140s)
+
+## 3D Modeling a Puppet
+
+### 1. Prepare the Image
+In an image editing software like Photoshop or GIMP, convert all visible pixels of the PNG to black and set the transparent (non-existent) pixels to white. Save this file as a displacement map for Blender.
+
+### 2. Create and Scale a Plane in Blender
+- Open Blender and create a new plane.
+- Scale the plane to match the dimensions of the PNG image, ensuring accurate alignment for displacement.
+
+### 3. Subdivide the Plane
+- Enter **Edit Mode** (`Tab` key).
+- Subdivide the plane with **100 subdivisions** to increase the mesh resolution.
+- Exit and re-enter **Edit Mode**, then subdivide the plane again with a lower value (e.g., **3 subdivisions**) to refine the geometry.
+
+### 4. Add the Displace Modifier
+- In **Object Mode**, apply a **Displace Modifier** to the plane. This modifier uses the displacement map to create 3D depth.
+
+### 5. Load the Displacement Texture
+- Go to the **Texture Properties** tab and create a new texture.
+- Open the black-and-white PNG displacement map you prepared earlier.
+
+### 6. Adjust Displacement Settings
+- Go back to the **Modifier Properties** tab.
+- Set the **displacement strength** (e.g., **-0.0025**) to control the height and depth of the extrusion based on the texture.
+
+### 7. Apply the Displace Modifier
+- Once the displacement looks correct, apply the **Displace Modifier** to finalize the changes.
+
+### 8. Clean Up the Mesh
+- Enter **Edit Mode** again and select unwanted vertices.
+- Flatten them along the **Z-axis** by pressing `S`, `Z`, then `0` to remove unnecessary geometry.
+
+---
+
+### 9. Retrieve the Vertice Outline
+- Select an inner vertice.
+- Use **Select Similar** by the amount of adjacent faces (`Shift + G` → **Number of Adjacent Faces**).
+- Select all interior edges and press `X` to delete these interior vertices.
+
+### 10. Clean Up the Outline
+- Ensure that all vertices are singly linked.
+- Delete any vertices with **3 or more connecting edges**.
+- Merge 2 close vertices at the center by pressing `M`.
+- If two vertices are connected by an additional edge, delete the edge by selecting the vertices and pressing `X`.
+
+### 11. Separate the Selection
+- Select all vertices and press `P` to separate the selection, moving from **Edit Mode** to **Object Mode**.
+
+### 12. Smooth the Outline
+- Apply the **Smooth Modifier** to the outline.
+- Adjust the **factor** and repeat as needed.
+- Apply this modifier.
+
+### 13. Optimize the Model
+- Go back to **Edit Mode**, select all vertices, and **un-subdivide** (found under the **Edge Menu**).
+- Increase the number of iterations for smaller space, ensuring the integrity of the shape is maintained.
+
+### 14. Select the Largest Outline (Base)
+- Select the largest outline (base) by selecting its vertices.
+- Press `L` to select all linked vertices.
+- Drag this outline down along the **Z-axis** to separate it.
+
+### 15. Fill the Outline
+- Press `F` to fill the selected outline.
+
+### 16. Inverse the Selection
+- Press `Ctrl + I` to invert the selection.
+
+### 17. Extrude to Create Holes
+- Select the outline and press `E` to extrude.
+- Drag the extrusion down and press `Z` to constrain the extrusion to the **Z-axis**.
+- Ensure the extrusion cuts through the filled outline created earlier.
+
+### 18. Select the Extruded Holes
+- Press `L` to select all extruded holes.
+
+### 19. Separate the Extruded Holes
+- Press `P` to separate the selection, moving to **Object Mode**.
+
+### 20. Smooth the Extruded Holes
+- Select the extruded hole objects and click on **Shade Smooth** under the **Object** tab.
+
+### 21. Use the Boolean Modifier to Cut Holes
+- Select the base outline object.
+- Apply the **Boolean Modifier** to cut the holes into the outline.
+- Use the **Dropper** icon to select the extruded hole objects, select the **Fast** option, and then apply the modifier.
+
+### 22. Hide the Hole Object
+- Hide the extruded hole object to reveal the plane with the holes.
+
+### 23. Add Thickness with the Solidify Modifier
+- Apply the **Solidify Modifier** to the base outline and set the thickness as desired.
+
+---
+
+### UV Unwrapping and Texturing
+
+#### 24. UV Unwrap the Model
+- Stay in **Edit Mode** and select all by pressing `A`.
+- Open the **UV Menu** and select **Smart UV Project**.
+- Press **OK** to finalize the unwrapping.
+
+#### 25. Apply an Image Texture
+- Go to the **Material** tab and select the **Base Color**.
+- Click the **yellow icon**, select **Image Texture**, and open the image you wish to use.
+
+#### 26. View the Texture
+- Switch to **Object Mode**, then change to **Material Mode** to see the image laid over the object.
+
+3### 27. Adjust the UV Layout
+- Split the window to open the **UV Editor** on the side.
+- Use the **move, shear, rotate, resize** tools to adjust the image layout and ensure it fits the object perfectly.
+
+---
+
+### Exporting the Model
+
+#### 29. Export the Model
+- Export the model as a **GLTF** file.
+- Specify any additional settings as required.
+
+#### 30. Preview the Model
+- You can preview the model using an online 3D model viewer, such as [3DViewer.net](https://3dviewer.net/).
+- Ensure the image is uploaded to this viewer to view the omage overlaid model properly.
+
 ## 3. Project Reflections
 - Some challenges we faced and how we solve
   - Getting the math right
