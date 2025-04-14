@@ -395,6 +395,16 @@ export function getOffsetAngleForArmPivot(targetPosition, armPivot) {
 
 # 4. 3D Modelling Process (Blender)
 
+## Resources used
+
+### We closely replicated these turoials in creating the 3D models. However, this required a lot of preprocessing steps and debugging steps (as functions in blender have several unexpected side effects if not used correctly). The guide is more comprehensive including some details that will need to be followed closely for optimal results.
+
+### Resources:
+
+[Creating a 3D model from a 2d image (or 2d vertice outline) in Blender tutorial](https://www.youtube.com/watch?v=SFil_VghMEk)
+
+[Adding an image to an object in Blender tutorial](https://www.youtube.com/watch?v=jLGWE335J28&t=140s)
+
 ## 3D Modeling a Puppet
 
 ### 1. Prepare the Image
